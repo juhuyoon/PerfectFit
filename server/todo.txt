@@ -1,0 +1,9 @@
+Authentication:
+  - Interested in rolling our own instead of passport?
+    If so: https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/
+
+Database:
+  - Still need to create tables, but we should discuss the structure
+
+Application Structure:
+  - I had something in mind that slightly deviates from traditional but I wanted to go over it with you
