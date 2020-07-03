@@ -1,3 +1,4 @@
+// The name of the database table
 const tableName = '';
 
 exports.up = function(knex) {
