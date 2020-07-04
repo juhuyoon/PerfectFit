@@ -3,7 +3,9 @@ Authentication:
     If so: https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/
 
 Database:
-  - Still need to create tables, but we should discuss the structure
-
+  - Should I set the increments of IDs to be bigIncrement or Increment? 
+  (8 byte vs 4 byte, but according to reading, it seems that the difference in negligible )
+  (Do you think there will be any issues for how bigint data returns as a string in queries?)
+  (Setting defaultTo(0) for false, defaultTo(knex.fn.now()) for current Date )
 Application Structure:
   - I had something in mind that slightly deviates from traditional but I wanted to go over it with you
