@@ -6,6 +6,7 @@ const app = require('../src/app');
 const Member = require('../src/models/Member');
 
 beforeEach(async () => {
+  // TODO: truncate the table instead of rolling back all migrations, it'll be faster
   await knex.migrate.rollback();
   await knex.migrate.latest();
   await knex.seed.run();
