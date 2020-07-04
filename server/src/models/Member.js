@@ -3,7 +3,7 @@ const knex = require('./knex');
 
 Model.knex(knex);
 
-class User extends Model {
+class Member extends Model {
   static get tableName() {
     return 'members';
   }
@@ -48,4 +48,4 @@ class User extends Model {
   }
 }
 
-module.exports = User;
+module.exports = Member;

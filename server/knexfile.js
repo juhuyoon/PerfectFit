@@ -4,6 +4,7 @@ module.exports = {
   test: {
     client: config.get('knex.client'),
     connection: config.get('knex.connection'),
+    useNullAsDefault: true,
   },
 
   development: {

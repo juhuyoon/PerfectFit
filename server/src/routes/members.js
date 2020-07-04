@@ -4,22 +4,24 @@ const Member = require('../models/Member');
 const router = express.Router();
 
 /**
- * POST /users
+ * POST /members
  *
- * Create a new user
+ * Create a new member
  */
 router.post('/', async (req, res, next) => {
   try {
     const { full_name, username, email, password } = req.body;
 
-    const user = await Member.query().insert({
+    const member = await Member.query().insert({
       full_name,
       username,
       email,
       password,
     });
 
-    res.json(user);
+    delete member.password;
+
+    res.json(member);
   } catch (err) {
     next(err);
   }
