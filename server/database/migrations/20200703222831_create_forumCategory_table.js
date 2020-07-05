@@ -1,4 +1,4 @@
-const tableName = 'forumCategory';
+const tableName = 'forumCategories';
 
 exports.up = function (knex) {
   return knex.schema.createTable(tableName, function (table) {

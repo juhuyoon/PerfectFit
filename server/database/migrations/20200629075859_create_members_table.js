@@ -8,10 +8,11 @@ exports.up = function (knex) {
     table.string('city').notNull();
     table.string('email').notNull();
     table.string('password').notNull();
-    table.int('accessLevel').notNull();
+    table.integer('accessLevel').notNull();
     table.text('reason').notNull();
     table.boolean('confirmed').defaultTo(0);
-    table.timestamp('createdAt').defaultTo(knex.fn.now());
+    table.timestamp('createdAt');
+    // table.timestamp('createdAt').defaultTo(knex.fn.now());
     table.timestamp('updatedAt');
   });
 };
