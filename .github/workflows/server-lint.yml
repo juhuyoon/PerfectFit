@@ -29,3 +29,13 @@ jobs:
       - name: Run linters
         working-directory: server
         run: npm run lint
+  run-tests:
+    name: Run tests
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Run linters
+        working-directory: server
+        run: docker-compose up --build
