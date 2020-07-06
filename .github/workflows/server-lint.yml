@@ -9,8 +9,8 @@ on:
       - "server/*"
 
 jobs:
-  Lint Server:
-    name: Run linters
+  run-lint:
+    name: Lint Server Code
     runs-on: ubuntu-latest
 
     steps:
