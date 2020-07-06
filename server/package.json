@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "lint": "eslint src/",
+    "lint": "eslint src/ database/ __tests__/",
     "start": "nodemon ./src/bin/www",
-    "test": "jest"
+    "test": "NODE_ENV=test jest"
   },
   "dependencies": {
     "config": "^3.3.1",
@@ -16,9 +16,11 @@
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
     "knex": "^0.21.1",
+    "knex-db-manager": "^0.6.1",
     "morgan": "~1.9.1",
     "objection": "^2.2.0",
     "pg": "^8.2.1",
+    "pg-escape": "^0.2.0",
     "sqlite3": "^4.2.0"
   },
   "devDependencies": {

@@ -1,20 +1,31 @@
 const request = require('supertest');
 const config = require('config');
 const faker = require('faker');
-const knex = require('knex')(config.get('knex'));
+const knexDbManager = require('knex-db-manager');
 const app = require('../src/app');
 const Member = require('../src/models/Member');
 
-beforeEach(async () => {
-  // TODO: truncate the table instead of rolling back all migrations, it'll be faster
-  await knex.migrate.rollback();
-  await knex.migrate.latest();
-  await knex.seed.run();
+const dbManager = knexDbManager.databaseManagerFactory({
+  knex: config.get('knex'),
+  dbManager: {
+    superUser: config.get('knex.connection.user'),
+    superPassword: config.get('knex.connection.password'),
+    populatePathPattern: 'database/seeds/**/*.js', // glob format for searching seeds
+  },
 });
 
-afterAll(async (done) => {
-  await knex.destroy();
-  done();
+beforeAll(async () => {
+  await dbManager.dropDb(config.get('knex.connection.database'));
+  await dbManager.createDb(config.get('knex.connection.database'));
+  await dbManager.migrateDb();
+});
+
+beforeEach(async () => {
+  await dbManager.truncateDb(['migrations']);
+});
+
+afterAll(async () => {
+  await dbManager.close();
 });
 
 async function makePostRequest(url, attributes = {}) {
@@ -129,8 +140,6 @@ describe('Creating a user', () => {
 
   test('it returns an error if email is taken', async () => {
     const email = faker.internet.email();
-    const full_name = faker.name.findName();
-    const username = faker.internet.userName();
 
     await Member.query().insert({
       email,

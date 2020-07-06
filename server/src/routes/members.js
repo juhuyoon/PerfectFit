@@ -4,15 +4,6 @@ const Member = require('../models/Member');
 
 const router = express.Router();
 
-const customValidationResult = validationResult.withDefaults({
-  formatter: (error) => {
-    return {
-      msg: error.msg,
-      param: error.param,
-    };
-  },
-});
-
 /**
  * POST /members
  *
@@ -26,18 +17,17 @@ router.post(
       .isEmpty()
       .withMessage('Please provide your name.')
       .trim(),
-    body('email')
-      .isEmail()
-      .normalizeEmail()
-      .custom(async (value) => {
-        const member = await Member.query().where('email', value);
+    body('email').isEmail().normalizeEmail(),
+    // .custom(async (value) => {
+    // const member = await Member.query().where('email', value);
 
-        if (member) {
-          return Promise.reject('That E-mail address is already in use');
-        }
+    /// / if (member) {
+    /// / console.log('there is a member');
+    /// / return Promise.reject('That E-mail address is already in use');
+    /// / }
 
-        return true;
-      }),
+    // return true;
+    // }),
     body('password')
       .not()
       .isEmpty()
