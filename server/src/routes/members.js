@@ -22,7 +22,7 @@ router.post(
         const member = await Member.query().where('username', value).first();
 
         if (member) {
-          return Promise.reject('That username is already taken');
+          throw new Error('That username is already taken');
         }
 
         return true;
@@ -40,7 +40,7 @@ router.post(
         const member = await Member.query().where('email', value).first();
 
         if (member) {
-          return Promise.reject('That E-mail address is already in use');
+          throw new Error('That E-mail address is already in use');
         }
 
         return true;
