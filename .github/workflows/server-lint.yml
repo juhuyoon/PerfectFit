@@ -1,6 +1,9 @@
 name: Server Lint
 
 on:
+  pull_requests:
+    paths:
+      - "server/*"
   push:
     paths:
       - "server/*"
