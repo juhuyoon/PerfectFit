@@ -24,7 +24,7 @@ jobs:
 
       - name: Install Node.js dependencies
         working-directory: server
-        run: npm install
+        run: npm ci
 
       - name: Run linters
         working-directory: server
