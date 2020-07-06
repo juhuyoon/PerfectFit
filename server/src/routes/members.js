@@ -12,22 +12,39 @@ const router = express.Router();
 router.post(
   '/',
   [
+    body('username')
+      .not()
+      .isEmpty()
+      .withMessage('Please provide a unique username.')
+      .trim()
+      .custom(async (value) => {
+        // Check to see if this email exist, if so, it's taken
+        const member = await Member.query().where('username', value).first();
+
+        if (member) {
+          return Promise.reject('That username is already taken');
+        }
+
+        return true;
+      }),
     body('full_name')
       .not()
       .isEmpty()
       .withMessage('Please provide your name.')
       .trim(),
-    body('email').isEmail().normalizeEmail(),
-    // .custom(async (value) => {
-    // const member = await Member.query().where('email', value);
+    body('email')
+      .isEmail()
+      .normalizeEmail()
+      .custom(async (value) => {
+        // Check to see if this email exist, if so, it's taken
+        const member = await Member.query().where('email', value).first();
 
-    /// / if (member) {
-    /// / console.log('there is a member');
-    /// / return Promise.reject('That E-mail address is already in use');
-    /// / }
+        if (member) {
+          return Promise.reject('That E-mail address is already in use');
+        }
 
-    // return true;
-    // }),
+        return true;
+      }),
     body('password')
       .not()
       .isEmpty()
@@ -37,7 +54,6 @@ router.post(
       ),
   ],
   async (req, res, next) => {
-    // const errors = customValidationResult(req);
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {

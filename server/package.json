@@ -5,7 +5,8 @@
   "scripts": {
     "lint": "eslint src/ database/ __tests__/",
     "start": "nodemon ./src/bin/www",
-    "test": "NODE_ENV=test jest"
+    "test": "NODE_ENV=test jest",
+    "test:watch": "NODE_ENV=test jest --runInBand --watchAll"
   },
   "dependencies": {
     "config": "^3.3.1",

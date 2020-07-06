@@ -14,18 +14,14 @@ const dbManager = knexDbManager.databaseManagerFactory({
   },
 });
 
-beforeAll(async () => {
-  await dbManager.dropDb(config.get('knex.connection.database'));
-  await dbManager.createDb(config.get('knex.connection.database'));
-  await dbManager.migrateDb();
-});
-
 beforeEach(async () => {
-  await dbManager.truncateDb(['migrations']);
+  const ignoredTables = ['migrations'];
+
+  await dbManager.truncateDb(ignoredTables);
 });
 
-afterAll(async () => {
-  await dbManager.close();
+afterAll(() => {
+  dbManager.close();
 });
 
 async function makePostRequest(url, attributes = {}) {
@@ -132,7 +128,7 @@ describe('Creating a user', () => {
     expect(res.statusCode).toBe(422);
     expect(res.body).toHaveProperty('errors');
     expect(res.body.errors).toContainEqual({
-      msg: 'Invalid value',
+      msg: expect.any(String),
       param: 'email',
       location: 'body',
     });
@@ -141,7 +137,7 @@ describe('Creating a user', () => {
   test('it returns an error if email is taken', async () => {
     const email = faker.internet.email();
 
-    await Member.query().insert({
+    await makePostRequest('/members', {
       email,
       full_name: faker.name.findName(),
       username: faker.internet.userName(),
@@ -157,14 +153,53 @@ describe('Creating a user', () => {
 
     expect(res.statusCode).toBe(422);
     expect(res.body).toHaveProperty('errors');
-    expect(res.body.errors).toContain({
+    expect(res.body.errors).toContainEqual({
       msg: 'That E-mail address is already in use',
       param: 'email',
+      location: 'body',
+      value: expect.any(String),
+    });
+  });
+
+  test('it returns an error if no username is given', async () => {
+    const { res } = await makePostRequest('/members', {
+      email: faker.internet.email(),
+      full_name: faker.name.findName(),
+      password: 'password',
+    });
+
+    expect(res.statusCode).toBe(422);
+    expect(res.body).toHaveProperty('errors');
+    expect(res.body.errors).toContainEqual({
+      msg: expect.any(String),
+      param: 'username',
       location: 'body',
     });
   });
 
-  test.todo('it returns an error if no username is given');
+  test('it returns an error if username is taken', async () => {
+    const username = faker.internet.userName();
 
-  test.todo('it returns an error if username is taken');
+    await makePostRequest('/members', {
+      email: faker.internet.email(),
+      full_name: faker.name.findName(),
+      username,
+      password: 'password',
+    });
+    const { res } = await makePostRequest('/members', {
+      username,
+      email: faker.internet.email(),
+      full_name: faker.name.findName(),
+      password: 'password',
+    });
+
+    expect(res.statusCode).toBe(422);
+    expect(res.body).toHaveProperty('errors');
+    expect(res.body.errors).toContainEqual({
+      msg: expect.any(String),
+      param: 'username',
+      location: 'body',
+      value: expect.any(String),
+    });
+  });
 });
