@@ -11,8 +11,7 @@ exports.up = function (knex) {
     table.integer('accessLevel').notNull();
     table.text('reason').notNull();
     table.boolean('confirmed').defaultTo(0);
-    table.timestamp('createdAt');
-    // table.timestamp('createdAt').defaultTo(knex.fn.now());
+    table.timestamp('createdAt').defaultTo(new Date().toISOString());
     table.timestamp('updatedAt');
   });
 };

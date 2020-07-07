@@ -7,7 +7,7 @@ const members1 = {
   password: 'kappa123',
   accessLevel: 1,
   reason: 'This is my website let me in',
-  boolean: true,
+  confirmed: true,
 };
 
 const members2 = {
@@ -19,7 +19,7 @@ const members2 = {
   password: 'best123',
   accessLevel: 1,
   reason: 'This is my website let me in too',
-  boolean: true,
+  confirmed: true,
 };
 
 exports.seed = function (knex) {

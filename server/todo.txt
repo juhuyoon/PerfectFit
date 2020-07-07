@@ -3,9 +3,10 @@ Authentication:
     If so: https://hasura.io/blog/best-practices-of-using-jwt-with-graphql/
 
 Database:
-  - Should I set the increments of IDs to be bigIncrement or Increment? 
-  (8 byte vs 4 byte, but according to reading, it seems that the difference in negligible )
+  - Resolved the order of seeds being installed by putting them in alphabetical order
+    (knex docs state that seeds are seeded via alphabetical order)
+  - Objection.js (Should you set a model for each table? Is it good practice?)
   (Do you think there will be any issues for how bigint data returns as a string in queries?)
-  (Setting defaultTo(0) for false, defaultTo(knex.fn.now()) for current Date )
+  (Setting defaultTo(0) for false) 
 Application Structure:
   - I had something in mind that slightly deviates from traditional but I wanted to go over it with you

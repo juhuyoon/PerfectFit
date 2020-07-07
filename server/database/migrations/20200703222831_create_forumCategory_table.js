@@ -5,7 +5,7 @@ exports.up = function (knex) {
     table.bigIncrements('id').unsigned().primary();
     table.string('title').notNull();
     table.text('description').notNull();
-    table.timestamp('createdAt').defaultTo(knex.fn.now());
+    table.timestamp('createdAt').defaultTo(new Date().toISOString());
     table.timestamp('updatedAt');
   });
 };

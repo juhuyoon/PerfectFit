@@ -6,7 +6,7 @@ exports.up = function (knex) {
     table.integer('idSubCategory').notNull();
     table.integer('idUser').notNull();
     table.text('content').notNull();
-    table.timestamp('createdAt').defaultTo(knex.fn.now());
+    table.timestamp('createdAt').defaultTo(new Date().toISOString());
     table.timestamp('updatedAt');
 
     table.foreign('idSubCategory').references('forumSubCategories.id');
