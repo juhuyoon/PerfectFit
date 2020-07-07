@@ -15,6 +15,21 @@ class ForumSubCategory extends Model {
       },
     };
   }
+
+  static get relationMappings() {
+    // eslint-disable-next-line global-require
+    const ForumPost = require('./ForumPost');
+    return {
+      posts: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: ForumPost,
+        join: {
+          from: 'forumSubCategories.id',
+          to: 'forumPosts.idSubCategory',
+        },
+      },
+    };
+  }
 }
 
 module.exports = ForumSubCategory;
