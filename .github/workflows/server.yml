@@ -41,9 +41,9 @@ jobs:
         ports:
           - 5432:5432
         env:
-          - POSTGRES_USER=postgres
-          - POSTGRES_PASSWORD=password
-          - POSTGRES_DB=perfectfit-db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: perfectfit-db
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
