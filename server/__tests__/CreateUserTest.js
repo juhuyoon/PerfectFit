@@ -3,7 +3,6 @@ const config = require('config');
 const faker = require('faker');
 const knexDbManager = require('knex-db-manager');
 const app = require('../src/app');
-const Member = require('../src/models/Member');
 
 const dbManager = knexDbManager.databaseManagerFactory({
   knex: config.get('knex'),
@@ -12,6 +11,11 @@ const dbManager = knexDbManager.databaseManagerFactory({
     superPassword: config.get('knex.connection.password'),
     populatePathPattern: 'database/seeds/**/*.js', // glob format for searching seeds
   },
+});
+
+beforeAll(() => {
+  dbManager.createDb();
+  dbManager.migrateDb();
 });
 
 beforeEach(async () => {
