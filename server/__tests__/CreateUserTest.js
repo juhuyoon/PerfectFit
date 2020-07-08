@@ -14,7 +14,6 @@ const dbManager = knexDbManager.databaseManagerFactory({
 });
 
 beforeAll(() => {
-  dbManager.createDb();
   dbManager.migrateDb();
 });
 
