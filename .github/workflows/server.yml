@@ -61,3 +61,5 @@ jobs:
       - name: Run tests
         working-directory: server
         run: npm test
+        env:
+          DB_HOST: postgres
