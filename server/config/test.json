@@ -1,6 +1,7 @@
 {
   "knex": {
     "connection": {
+      "host": "localhost",
       "database": "perfectfit-test-db"
     }
   }

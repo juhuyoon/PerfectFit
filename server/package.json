@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "eslint src/ database/ __tests__/",
     "start": "nodemon ./src/bin/www",
-    "test": "NODE_ENV=test jest --forceExit",
+    "test": "NODE_ENV=test jest --runInBand --forceExit",
     "test:watch": "NODE_ENV=test jest --runInBand --watchAll"
   },
   "dependencies": {

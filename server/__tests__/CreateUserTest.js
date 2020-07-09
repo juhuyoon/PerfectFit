@@ -13,8 +13,14 @@ const dbManager = knexDbManager.databaseManagerFactory({
   },
 });
 
-beforeAll(() => {
-  dbManager.migrateDb();
+beforeAll(async () => {
+  const knex = await dbManager.knexInstance();
+
+  try {
+    await knex.migrate.latest();
+  } catch (err) {
+    // migrations already exist =)
+  }
 });
 
 beforeEach(async () => {
@@ -24,6 +30,8 @@ beforeEach(async () => {
 });
 
 afterAll(() => {
+  // close db connections
+  dbManager.closeKnex();
   dbManager.close();
 });
 
