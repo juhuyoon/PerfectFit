@@ -1,15 +1,15 @@
-const tableName = 'forumSubCategories';
+const tableName = 'forum_sub_categories';
 
 exports.up = function (knex) {
   return knex.schema.createTable(tableName, function (table) {
     table.bigIncrements('id').unsigned().primary();
-    table.integer('idCategory').notNull();
+    table.integer('id_category').notNull();
     table.string('title').notNull();
     table.text('description').notNull();
-    table.timestamp('createdAt').defaultTo(new Date().toISOString());
-    table.timestamp('updatedAt');
+    table.timestamp('created_at').defaultTo(knex.raw('NOW() '));
+    table.timestamp('updated_at');
 
-    table.foreign('idCategory').references('forumCategories.id');
+    table.foreign('id_category').references('forum_categories.id');
   });
 };
 

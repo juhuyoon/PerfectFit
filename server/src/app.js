@@ -8,7 +8,7 @@ const hbs = require('hbs');
 const debug = require('debug')('server:app');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const membersRouter = require('./routes/members');
 
 const app = express();
 
@@ -28,14 +28,21 @@ hbs.registerPartials(`${__dirname}/views/partials`, (err) => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-app.use(logger('dev'));
+app.use(
+  logger('dev', {
+    skip() {
+      // Skip logging if we are in test mode
+      return process.env.NODE_ENV === 'test';
+    },
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/members', membersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

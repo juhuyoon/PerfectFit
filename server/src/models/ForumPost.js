@@ -1,17 +1,22 @@
-const { Model } = require('./knex');
+const { Model } = require('objection');
+const knex = require('./knex');
+
+Model.knex(knex);
 
 class ForumPost extends Model {
   static get tableName() {
     return 'forumPosts';
   }
-  //   $beforeInsert(context) {
-  //       this.idSubCategory =
-  //   }
-
+  
   static get jsonSchema() {
     return {
       type: 'object',
-      required: [],
+      required: ['id_sub_category', 'id_user', 'content'],
+      properties: {
+        id: { type: 'integer' },
+        id_sub_category: { type: 'integer' },
+        id_user: { type: 'integer'},
+      }
     };
   }
 }

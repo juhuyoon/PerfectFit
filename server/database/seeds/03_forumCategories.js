@@ -1,10 +1,10 @@
-const forumCategory1 = {
+const forum_category1 = {
   id: 1,
   title: 'general',
   description: 'a place to meme at',
 };
 
-const forumCategory2 = {
+const forum_category2 = {
   id: 2,
   title: 'resources',
   description: 'a place to meme at with resources',
@@ -12,10 +12,13 @@ const forumCategory2 = {
 
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex('forumCategories')
+  return knex('forum_categories')
     .del()
     .then(function () {
       // Inserts seed entries
-      return knex('forumCategories').insert([forumCategory1, forumCategory2]);
+      return knex('forum_categories').insert([
+        forum_category1,
+        forum_category2,
+      ]);
     });
 };

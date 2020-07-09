@@ -1,8 +1,8 @@
 {
   "knex": {
-    "client": "sqlite3",
     "connection": {
-      "filename": "./dev.sqlite3"
+      "host": "localhost",
+      "database": "perfectfit-test-db"
     }
   }
 }

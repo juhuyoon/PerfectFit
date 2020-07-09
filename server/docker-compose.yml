@@ -12,6 +12,7 @@ services:
       - ./config/:/opt/app/config:delegated
       - ./src/:/opt/app/src:delegated
       - ./database/:/opt/app/database:delegated
+      - ./__tests__/:/opt/app/__tests__:delegated
     depends_on:
       postgres:
         condition: service_healthy
@@ -28,7 +29,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=perfectfitDB
+      - POSTGRES_DB=perfectfit-db
 
 volumes:
   postgres-data:

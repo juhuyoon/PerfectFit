@@ -1,8 +1,11 @@
-const { Model } = require('./knex');
+const { Model } = require('objection');
+const knex = require('./knex');
+
+Model.knex(knex);
 
 class ForumSubCategory extends Model {
   static get tableName() {
-    return 'forumSubCategories';
+    return 'forum_sub_categories';
   }
 
   static get jsonSchema() {
@@ -24,8 +27,8 @@ class ForumSubCategory extends Model {
         relation: Model.BelongsToOneRelation,
         modelClass: ForumPost,
         join: {
-          from: 'forumSubCategories.id',
-          to: 'forumPosts.idSubCategory',
+          from: 'forum_sub_categories.id',
+          to: 'forum_posts.id_sub_category',
         },
       },
     };
